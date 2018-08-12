@@ -2,6 +2,7 @@ package com.singleton.liker.repository;
 
 import com.singleton.liker.domain.Counter;
 import lombok.AllArgsConstructor;
+import org.springframework.data.mongodb.core.FindAndModifyOptions;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -33,5 +34,24 @@ public class CounterLikeRepository {
         query.addCriteria(Criteria.where("_id").is(playerId));
         Update update = new Update().inc("likes", 1);
         mongoTemplate.upsert(query, update, Counter.class);
+    }
+
+    /**
+     * Get or create record in mongo. This used instead just using standard CRUD JPA repository to
+     * avoid phantom read
+     *
+     * @param playerId Id of player to get
+     * @return Counter structure with two fields: player id and like count
+     */
+    public Counter get(String playerId) {
+        Query query = new Query();
+        query.addCriteria(Criteria.where("_id").is(playerId));
+        Update update = new Update().setOnInsert("likes", 0);
+        return mongoTemplate.findAndModify(query,
+                                           update,
+                                           FindAndModifyOptions.options()
+                                                               .upsert(true)
+                                                               .returnNew(true),
+                                           Counter.class);
     }
 }
