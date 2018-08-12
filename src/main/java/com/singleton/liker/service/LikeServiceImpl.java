@@ -23,7 +23,9 @@ public class LikeServiceImpl implements LikeService {
     public long getLikes(String playerId) {
         Optional<Counter> playerLikes = counterRepository.findById(playerId);
         return playerLikes.map(Counter::getLikes)
-                          .orElseGet(() -> counterRepository.save(Counter.builder().playerId(playerId).build()).getLikes());
+                          .orElseGet(() -> counterRepository.save(Counter.builder()
+                                                                         .playerId(playerId)
+                                                                         .build()).getLikes());
 
     }
 }
