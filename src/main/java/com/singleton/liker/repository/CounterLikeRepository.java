@@ -21,8 +21,8 @@ public class CounterLikeRepository {
 
     /**
      * Increment likes. The reason why this method implemented through criteria API is avoidance
-     * to rely to optimistic locking mechanism of spring data jpa, we rely to mongoDB atomicity
-     * isolation instead.
+     * to rely to optimistic locking mechanism of spring data JPA, we rely to mongoDB atomicity
+     * isolation instead to avoid concurrency issues.
      *
      * @param playerId Id of player to like
      */
