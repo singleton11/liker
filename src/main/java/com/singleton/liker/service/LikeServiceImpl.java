@@ -15,11 +15,7 @@ public class LikeServiceImpl implements LikeService {
 
     @Override
     public void like(String playerId) {
-        if (counterRepository.findById(playerId).isPresent()) {
-            counterLikeRepository.like(playerId);
-        } else {
-            counterRepository.save(Counter.builder().playerId(playerId).likes(1).build());
-        }
+        counterLikeRepository.like(playerId);
     }
 
     @Override
@@ -30,6 +26,5 @@ public class LikeServiceImpl implements LikeService {
                                                                                .playerId(playerId)
                                                                                .build())
                                                                   .getLikes());
-
     }
 }

@@ -24,12 +24,14 @@ public class CounterLikeRepository {
      * to rely to optimistic locking mechanism of spring data JPA, we rely to mongoDB atomicity
      * isolation instead to avoid concurrency issues.
      *
+     * Also we have to avoid phantom read through mongodb upsert mechanism.
+     *
      * @param playerId Id of player to like
      */
     public void like(String playerId) {
         Query query = new Query();
         query.addCriteria(Criteria.where("_id").is(playerId));
         Update update = new Update().inc("likes", 1);
-        mongoTemplate.findAndModify(query, update, Counter.class);
+        mongoTemplate.upsert(query, update, Counter.class);
     }
 }
