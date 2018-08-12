@@ -35,8 +35,8 @@ public class CounterRepository {
     }
 
     /**
-     * Get or create record in mongo. This used instead just using standard CRUD JPA repository to
-     * avoid phantom read
+     * Get or create record. This is used instead just using standard CRUD JPA repository to avoid
+     * phantom read
      *
      * @param playerId Id of player to get
      * @return Counter structure with two fields: player id and like count
