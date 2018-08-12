@@ -3,7 +3,6 @@ package com.singleton.liker.service;
 import static org.junit.Assert.assertEquals;
 
 import com.singleton.liker.domain.Counter;
-import com.singleton.liker.repository.CounterRepository;
 import java.util.stream.IntStream;
 import org.junit.After;
 import org.junit.Test;
@@ -11,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import com.singleton.liker.helper.repository.CounterRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
