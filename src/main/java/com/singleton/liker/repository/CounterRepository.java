@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 @AllArgsConstructor
-public class CounterLikeRepository {
+public class CounterRepository {
 
     private final MongoTemplate mongoTemplate;
 

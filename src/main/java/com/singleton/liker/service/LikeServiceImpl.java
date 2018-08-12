@@ -1,6 +1,6 @@
 package com.singleton.liker.service;
 
-import com.singleton.liker.repository.CounterLikeRepository;
+import com.singleton.liker.repository.CounterRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,15 +8,15 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class LikeServiceImpl implements LikeService {
 
-    private final CounterLikeRepository counterLikeRepository;
+    private final CounterRepository counterRepository;
 
     @Override
     public void like(String playerId) {
-        counterLikeRepository.like(playerId);
+        counterRepository.like(playerId);
     }
 
     @Override
     public long getLikes(String playerId) {
-        return counterLikeRepository.get(playerId).getLikes();
+        return counterRepository.get(playerId).getLikes();
     }
 }

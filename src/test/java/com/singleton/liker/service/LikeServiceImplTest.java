@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
-import com.singleton.liker.helper.repository.CounterRepository;
+import com.singleton.liker.helper.repository.TestCounterRepository;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)
@@ -20,7 +20,7 @@ public class LikeServiceImplTest {
     private LikeService likeService;
 
     @Autowired
-    private CounterRepository counterRepository;
+    private TestCounterRepository testCounterRepository;
 
     /**
      * Since transactions for mongo db is not supported by @DataJpaTest, we have to clear
@@ -28,7 +28,7 @@ public class LikeServiceImplTest {
      */
     @After
     public void tearDown() {
-        counterRepository.deleteAll();
+        testCounterRepository.deleteAll();
     }
 
     @Test
@@ -38,7 +38,7 @@ public class LikeServiceImplTest {
 
     @Test
     public void getLikesIfUserExists() {
-        counterRepository.save(Counter.builder().playerId("Ivan").likes(3).build());
+        testCounterRepository.save(Counter.builder().playerId("Ivan").likes(3).build());
         assertEquals(3, likeService.getLikes("Ivan"));
     }
 
