@@ -30,10 +30,8 @@ public class CounterRepository {
      * @param playerId Id of player to like
      */
     public void like(String playerId) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("_id").is(playerId));
         Update update = new Update().inc("likes", 1);
-        mongoTemplate.upsert(query, update, Counter.class);
+        mongoTemplate.upsert(getQuery(playerId), update, Counter.class);
     }
 
     /**
@@ -44,14 +42,16 @@ public class CounterRepository {
      * @return Counter structure with two fields: player id and like count
      */
     public Counter get(String playerId) {
-        Query query = new Query();
-        query.addCriteria(Criteria.where("_id").is(playerId));
         Update update = new Update().setOnInsert("likes", 0);
-        return mongoTemplate.findAndModify(query,
+        return mongoTemplate.findAndModify(getQuery(playerId),
                                            update,
                                            FindAndModifyOptions.options()
                                                                .upsert(true)
                                                                .returnNew(true),
                                            Counter.class);
+    }
+
+    private Query getQuery(String playerId) {
+        return new Query().addCriteria(Criteria.where("_id").is(playerId));
     }
 }
