@@ -3,7 +3,6 @@ package com.singleton.liker.service;
 import com.singleton.liker.domain.Counter;
 import com.singleton.liker.repository.CounterLikeRepository;
 import com.singleton.liker.repository.CounterRepository;
-import java.util.Optional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
